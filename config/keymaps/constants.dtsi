@@ -1,0 +1,15 @@
+#define U_TAPPING_TERM 200
+
+#define MIRYOKU_COMBO_TPSL 33 34
+#define MIRYOKU_COMBO_TPSR 35 36
+
+
+#define _BASE 0
+#define _BUT  1
+#define _NAV  2
+#define _MOU  3
+#define _MED  4
+#define _NUM  5
+#define _SYM  6
+#define _FUN  7
+

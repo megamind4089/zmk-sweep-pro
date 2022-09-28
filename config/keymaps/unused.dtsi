@@ -1,188 +1,178 @@
+// mouse move settings
+#define MMV_U MOVE_VERT(-650)
+#define MMV_D MOVE_VERT(650)
+#define MMV_L MOVE_HOR(-650)
+#define MMV_R MOVE_HOR(650)
+
+&mmv {
+    time-to-max-speed-ms = <500>;
+    acceleration-exponent=<1>;
+};
+
+// mouse wheel settings
+#define MWH_U SCROLL_VERT(15)
+#define MWH_D SCROLL_VERT(-15)
+#define MWH_L SCROLL_HOR(-15)
+#define MWH_R SCROLL_HOR(15)
+
+&mwh {
+    time-to-max-speed-ms = <2000>;
+    acceleration-exponent=<0>;
+};
+
+
 / {
+
     // macros
     macros {
-    ZMK_MACRO(hello,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp H &kp E &kp L &kp L &kp O>;
-    )
+        ZMK_MACRO(hello,
+            wait-ms = <0>;
+            tap-ms  = <10>;
+            bindings = <&kp H &kp E &kp L &kp L &kp O>;
+            )
 
-    ZMK_MACRO(encoder,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp E &kp N &kp C &kp O &kp D &kp E &kp R>;
-    )
+        ZMK_MACRO(nxt_tab,
+            wait-ms = <0>;
+            tap-ms  = <10>;
+            bindings = <&kp LC(TAB)>;
+            )
 
-    ZMK_MACRO(spc1,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp LA(M) &kp N1>;
-    )
-    
-    ZMK_MACRO(spc2,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp LA(M) &kp N2>;
-    )
-    
-    ZMK_MACRO(spc3,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp LA(M) &kp N3>;
-    )
-   
-    ZMK_MACRO(spc4,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp LA(M) &kp N4>;
-    )
-
-    ZMK_MACRO(nxt_tab,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp LC(TAB)>;
-    )
-
-    ZMK_MACRO(prv_tab,
-        wait-ms = <0>;
-        tap-ms  = <10>;
-        bindings = <&kp LC(LS(TAB))>;
-    )
+        ZMK_MACRO(prv_tab,
+            wait-ms = <0>;
+            tap-ms  = <10>;
+            bindings = <&kp LC(LS(TAB))>;
+            )
     };
 
-    // custom shift using mod-morph 
+    // custom shift using mod-morph
     behaviors {
-      cmqus: comma_question {
-        compatible = "zmk,behavior-mod-morph";
-        label = "COMMA_QUESTION";
-        #binding-cells = <0>;
-        bindings = <&kp COMMA>, <&kp QUESTION>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-      };
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping_term_ms = <U_TAPPING_TERM>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+        cmqus: comma_question {
+           compatible = "zmk,behavior-mod-morph";
+           label = "COMMA_QUESTION";
+           #binding-cells = <0>;
+           bindings = <&kp COMMA>, <&kp QUESTION>;
+           mods = <(MOD_LSFT|MOD_RSFT)>;
+       };
 
-      dtsmi: dot_semi {
-        compatible = "zmk,behavior-mod-morph";
-        label = "DOT_SEMI";
-        #binding-cells = <0>;
-        bindings = <&kp DOT>, <&kp SEMI>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-        masked_mods = <(MOD_LSFT|MOD_RSFT)>; // don't send shift
-      };
+        dtsmi: dot_semi {
+           compatible = "zmk,behavior-mod-morph";
+           label = "DOT_SEMI";
+           #binding-cells = <0>;
+           bindings = <&kp DOT>, <&kp SEMI>;
+           mods = <(MOD_LSFT|MOD_RSFT)>;
+           masked_mods = <(MOD_LSFT|MOD_RSFT)>; // don't send shift
+       };
     };
 
     // combos
     combos {
         compatible = "zmk,combos";
-        // right hand 
-        combo_esc {
-            timeout-ms = <50>;
-            key-positions = <16 17>;
-            bindings = <&kp ESC>;
-        };
-        
-         combo_lgui {
-            timeout-ms = <50>;
-            key-positions = <5 6>;
-            bindings = <&kp LGUI>;
-        };
-        
-         combo_fullscreen {
+        // right hand
+        combo_fullscreen {
             timeout-ms = <50>;
             key-positions = <25 26>;
             bindings = <&kp F11>;
         };
-        
-         combo_wkspc_up {
+
+        combo_wkspc_up {
             timeout-ms = <50>;
             key-positions = <6 7>;
             bindings = <&kp LG(PG_UP)>;
         };
-        
-         combo_wkspc_down {
+
+        combo_wkspc_down {
             timeout-ms = <50>;
             key-positions = <26 27>;
             bindings = <&kp LG(PG_DN)>;
         };
 
-         combo_win_up {
+        combo_win_up {
             timeout-ms = <50>;
             key-positions = <7 8>;
             bindings = <&kp LS(LG(PG_UP))>;
         };
-        
-         combo_win_down {
+
+        combo_win_down {
             timeout-ms = <50>;
             key-positions = <27 28>;
             bindings = <&kp LS(LG(PG_DN))>;
         };
 
-         combo_win_left {
+        combo_win_left {
             timeout-ms = <50>;
             key-positions = <17 18>;
             bindings = <&kp LS(LG(LEFT))>;
         };
 
-         combo_win_right {
+        combo_win_right {
             timeout-ms = <50>;
             key-positions = <9 18>;
             bindings = <&kp LS(LG(RIGHT))>;
         };
- 
-         combo_rdelete {
+
+        combo_rdelete {
             timeout-ms = <50>;
             key-positions = <15 16>;
             bindings = <&kp DELETE>;
         };
- 
-        // left hand 
-         combo_ldelete {
+
+        // left hand
+        combo_ldelete {
             timeout-ms = <50>;
             key-positions = <13 14>;
             bindings = <&kp DELETE>;
         };
- 
+
         combo_zoomin {
             timeout-ms = <50>;
             key-positions = <3 4>;
             bindings = <&kp LC(PLUS)>;
         };
- 
+
         combo_zoomout {
             timeout-ms = <50>;
             key-positions = <23 24>;
             bindings = <&kp LC(MINUS)>;
         };
- 
+
         combo_pgdn {
             timeout-ms = <50>;
             key-positions = <21 22>;
             bindings = <&kp PG_DN>;
         };
- 
+
         combo_pgup {
             timeout-ms = <50>;
             key-positions = <1 2>;
             bindings = <&kp PG_UP>;
         };
- 
+
         combo_mb_lclick {
             timeout-ms = <50>;
             key-positions = <12 13>;
             bindings = <&mkp LCLK>;
         };
 
-         combo_mb_rclick {
+        combo_mb_rclick {
             timeout-ms = <50>;
             key-positions = <22 23>;
             bindings = <&mkp RCLK>;
         };
 
-         combo_mb_mclick {
+        combo_mb_mclick {
             timeout-ms = <50>;
             key-positions = <2 3>;
             bindings = <&mkp MCLK>;
         };
- 
+
         // symbols
         combo_underscore {
             timeout-ms = <50>;
@@ -215,7 +205,7 @@
             key-positions = <4 14>;
             bindings = <&out OUT_USB>;
         };
- 
+
         combo_outtog {
             timeout-ms = <50>;
             key-positions = <4 24>;
